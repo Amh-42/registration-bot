@@ -187,9 +187,9 @@ def main():
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CallbackQueryHandler(queryHandler))
     dispatcher.add_handler(MessageHandler(Filters.text, messageHandler))
-    # updater.start_webhook(listen="0.0.0.0",
-    #                       port=int(PORT),
-    #                       url_path=TOKEN)
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
     updater.bot.setWebhook('https://nameless-caverns-36428.herokuapp.com/' +
                            TOKEN)
     updater.idle()
