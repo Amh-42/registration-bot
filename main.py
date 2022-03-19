@@ -1,5 +1,6 @@
 from telegram.ext import *
 from telegram import *
+from datetime import datetime
 
 
 def start(update: Update, context: CallbackContext):
@@ -66,7 +67,7 @@ def messageHandler(update: Update, context: CallbackContext):
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text="Thank You for your time.\n Your registration is Complete.\nHave a nice day.")
         fh = open("users.txt", "a")
-        fh.write(context.user_data["data"]+"\n")
+        fh.write(str(datetime.now())+"~"+context.user_data["data"]+"\n")
         fh.close()
 
     elif context.user_data.get("current", "") == "4a1":
@@ -78,21 +79,12 @@ def messageHandler(update: Update, context: CallbackContext):
                                  reply_markup=InlineKeyboardMarkup(buttons), text="Which Division are you interested in?")
 
     elif context.user_data.get("current", "") == "6a":
-        context.user_data["current"] += 1
+        context.user_data["current"] = "7a"
         context.user_data["data"] += update.message.text
         context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text="Thank You for your time.\n Your registration is Complete.\nHave a nice day.")
+                                 text="ለትብብርዎ እናመሰኛለን።\n ምዝገባዎ ተጠናቋል።\nመልካም ቀን ይሁንልዎ።")
         fh = open("users.txt", "a")
-        fh.write(context.user_data["data"]+"\n")
-        fh.close()
-
-    elif context.user_data.get("current", "") == 13:
-        context.user_data["current"] += 1
-        context.user_data["data"] += update.message.text
-        context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text="Thank You for your time.\n Your registration is Complete.\nHave a nice day.")
-        fh = open("users.txt", "a")
-        fh.write(context.user_data["data"]+"\n")
+        fh.write(str(datetime.now())+"~"+context.user_data["data"]+"\n")
         fh.close()
 
 
