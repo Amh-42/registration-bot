@@ -2,7 +2,11 @@ from telegram.ext import *
 from telegram import *
 from datetime import datetime
 import os
-PORT = int(os.environ.get('PORT', 5000))
+from dotenv import load_dotenv
+
+load_dotenv()
+
+PORT = int(os.environ.get('PORT', 80))
 TOKEN = os.environ["TOKEN"]
 
 
@@ -183,9 +187,9 @@ def main():
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CallbackQueryHandler(queryHandler))
     dispatcher.add_handler(MessageHandler(Filters.text, messageHandler))
-    updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
+    # updater.start_webhook(listen="0.0.0.0",
+    #                       port=int(PORT),
+    #                       url_path=TOKEN)
     updater.bot.setWebhook('https://nameless-caverns-36428.herokuapp.com/' +
                            TOKEN)
     updater.idle()
