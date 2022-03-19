@@ -1,6 +1,9 @@
 from telegram.ext import *
 from telegram import *
 from datetime import datetime
+import os
+PORT = int(os.environ.get('PORT', 5000))
+TOKEN = os.environ["TOKEN"]
 
 
 def start(update: Update, context: CallbackContext):
@@ -105,7 +108,6 @@ def queryHandler(update: Update, context: CallbackContext):
             chat_id=update.effective_chat.id, text="👋ሰላም \n😀ስሞትን ማን ልበል?")
 
     elif text == "_money_" or text == "_knowladge_":
-
         if context.user_data.get("current", "") == "4e":
             context.user_data["current"] = "5e"
             context.user_data["data"] += text + "~"
@@ -176,12 +178,16 @@ def queryHandler(update: Update, context: CallbackContext):
 
 def main():
 
-    updater = Updater("5209804397:AAGwrItWeH2bIMcQLGFG47zlPURnQhdRwWc")
+    updater = Updater(TOKEN)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CallbackQueryHandler(queryHandler))
     dispatcher.add_handler(MessageHandler(Filters.text, messageHandler))
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://nameless-caverns-36428.herokuapp.com/' +
+                           TOKEN)
     updater.idle()
 
 
