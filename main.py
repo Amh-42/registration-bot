@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+filepath = "user.txt"
+
 PORT = int(os.environ.get('PORT', 80))
 TOKEN = os.environ["TOKEN"]
 
@@ -73,9 +75,9 @@ def messageHandler(update: Update, context: CallbackContext):
         context.user_data["data"] += update.message.text
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text="Thank You for your time.\n Your registration is Complete.\nHave a nice day.")
-        fh = open("users.txt", "a")
-        fh.write(str(datetime.now())+"~"+context.user_data["data"]+"\n")
-        fh.close()
+        with open(filepath, 'a') as fp:
+        fp.write(str(datetime.now())+"~"+context.user_data["data"]+"\n")
+        fp.close()
 
     elif context.user_data.get("current", "") == "4a1":
         context.user_data["current"] = "5a"
@@ -90,9 +92,10 @@ def messageHandler(update: Update, context: CallbackContext):
         context.user_data["data"] += update.message.text
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text="ለትብብርዎ እናመሰግናለን።\n ምዝገባዎ ተጠናቋል።\nመልካም ቀን ይሁንልዎ።")
-        fh = open("users.txt", "a")
-        fh.write(str(datetime.now())+"~"+context.user_data["data"]+"\n")
-        fh.close()
+        with open(filepath, 'a') as fp:
+        fp.write(str(datetime.now())+"~"+context.user_data["data"]+"\n")
+        fp.close()
+
 
 
 def queryHandler(update: Update, context: CallbackContext):
