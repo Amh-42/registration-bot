@@ -89,7 +89,7 @@ def messageHandler(update: Update, context: CallbackContext):
         context.user_data["current"] = "7a"
         context.user_data["data"] += update.message.text
         context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text="ለትብብርዎ እናመሰኛለን።\n ምዝገባዎ ተጠናቋል።\nመልካም ቀን ይሁንልዎ።")
+                                 text="ለትብብርዎ እናመሰግናለን።\n ምዝገባዎ ተጠናቋል።\nመልካም ቀን ይሁንልዎ።")
         fh = open("users.txt", "a")
         fh.write(str(datetime.now())+"~"+context.user_data["data"]+"\n")
         fh.close()
